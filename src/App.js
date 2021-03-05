@@ -27,11 +27,13 @@ const InnerContainer = styled.div`
   background-color: lightsteelblue;
   display: flex;
   flex-direction: column;
+  height: 4em;
   
 
 `;
 
 const CurrencySelect = styled.select`
+  height: 4em;
   background-color: #41a83f;
   width: 100%;
   border: none;
@@ -69,9 +71,11 @@ const Swapper = styled.button`
 `;
 
 const ValueSelect = styled.div`
+  height: 4em;
   background-color: #6ac43d;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   
 `;
 
@@ -84,10 +88,13 @@ const ValueInput = styled.input`
 `;
 
 const CurrencySymbol = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
   font-size: ${fontSize};
+  height: 100%;
   color: black;
-  padding: 0.25em;
   min-width: 3em;
 `;
 
@@ -152,7 +159,7 @@ function App() {
         setErrorMessage("Something went wrong with fetching from the API, likely due to free-limit reached. Try again in 30 minutes.")
         return;
       }
-      setErrorMessage("Everything OK!")
+      setErrorMessage("API fetch successful. This site uses a free API and has a limit of calls per hour, which may break down if you change currencies too frequently.")
       const json = await result.json();
       setCurrencyData(json.results);
       //Do some ordering here maybe? another function creating an array of just the ID, in prefered order?
@@ -196,7 +203,7 @@ function App() {
         setErrorMessage("Something went wrong with fetching from the API, likely due to free-limit reached. Try again in 30 minutes.")
         return;
       }
-      setErrorMessage("Everything OK!")
+      setErrorMessage("API fetch successful. This site uses a free API to get currency rates and has a limit of calls per hour, which may break down if you change currencies too frequently.")
       const json = await result.json();
 
       const newExchangeRate = json[`${sourceCurrency}_${targetCurrency}`]
@@ -221,7 +228,7 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-        Currency Exchanger!
+        <h2>Currency Exchanger</h2>
 
         <Container> 
           <CurrencySelecter
@@ -245,12 +252,7 @@ function App() {
           />
 
         </Container>
-        {errorMessage}
-        <br></br>
-        <br></br>
-        <h2>TO-DOs</h2> 
-        Make a backup data incase API calls won't go through
-
+        <h6>{errorMessage}</h6>
       </header>
     </div>
   );
